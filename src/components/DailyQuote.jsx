@@ -1821,7 +1821,7 @@ export default function SoulApp() {
                 textTransform: "uppercase",
               }}
             >
-              ✦ AI-Powered · Indian Wisdom · {Object.values(MOODS).length} Moods
+              ✦  Indian Wisdom · {Object.values(MOODS).length} Moods
               ✦
             </div>
             <h1
