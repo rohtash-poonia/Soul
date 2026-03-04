@@ -107,7 +107,7 @@ const UI_TEXT = {
     journalPrompt: "Write your feelings ✍️",
     journalSub: "What did this thought make you feel?",
     writeBtn: "Write →",
-    aiThinking: "AI is thinking... 🌸",
+    aiThinking: "I am thinking... 🌸",
     startBreathe: "▶ Start (+15 XP) 🌊",
     stopBreathe: "⏹ Stop",
     inhale: "Breathe in... 🫁",
@@ -827,7 +827,7 @@ export default function SoulApp() {
   const css = `
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
     *{box-sizing:border-box;margin:0;padding:0;}
-    html,body{background:${theme.bg};font-family:'Plus Jakarta Sans',sans-serif;overflow-x:hidden;}
+    html,body{background:${theme.bg};};font-family:'Plus Jakarta Sans',sans-serif;overflow-x:hidden;}
     ::-webkit-scrollbar{width:4px;}
     ::-webkit-scrollbar-track{background:transparent;}
     ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:99px;}
@@ -885,79 +885,208 @@ export default function SoulApp() {
   // ══════════════════════════════════════════════════════════════════
   if (screen === "home") {
     return (
-      <div style={{ minHeight:"100vh", background:theme.bg, color:theme.text, position:"relative", overflow:"hidden" }}>
+      <div
+        style={{
+          minHeight: "100vh",
+          background: theme.bg,
+          color: theme.text,
+          position: "relative",
+          overflow: "hidden",
+          transition: "background 0.4s ease, color 0.4s ease",
+        }}
+      >
         <style>{css}</style>
 
         {confetti.map((c) => (
-          <div key={c.id} style={{
-            position:"fixed", top:0, left:`${c.x}%`, width:c.size, height:c.size,
-            borderRadius:c.shape, background:c.color, zIndex:999, pointerEvents:"none",
-            animation:`confettiFall ${1.5+Math.random()}s ${c.delay}s ease-in forwards`,
-          }}/>
+          <div
+            key={c.id}
+            style={{
+              position: "fixed",
+              top: 0,
+              left: `${c.x}%`,
+              width: c.size,
+              height: c.size,
+              borderRadius: c.shape,
+              background: c.color,
+              zIndex: 999,
+              pointerEvents: "none",
+              animation: `confettiFall ${1.5 + Math.random()}s ${c.delay}s ease-in forwards`,
+            }}
+          />
         ))}
 
         {toast && (
-          <div className="pop-in" style={{
-            position:"fixed", top:20, left:"50%", transform:"translateX(-50%)", zIndex:400,
-            display:"flex", alignItems:"center", gap:8, padding:"10px 20px", borderRadius:16,
-            background:"rgba(10,10,20,.97)", border:`1px solid rgba(255,255,255,.1)`,
-            boxShadow:"0 12px 40px rgba(0,0,0,.6)", fontSize:13, fontWeight:700, whiteSpace:"nowrap",
-          }}>
+          <div
+            className="pop-in"
+            style={{
+              position: "fixed",
+              top: 20,
+              left: "50%",
+              transform: "translateX(-50%)",
+              zIndex: 400,
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "10px 20px",
+              borderRadius: 16,
+              background: "rgba(10,10,20,.97)",
+              border: `1px solid rgba(255,255,255,.1)`,
+              boxShadow: "0 12px 40px rgba(0,0,0,.6)",
+              fontSize: 13,
+              fontWeight: 700,
+              whiteSpace: "nowrap",
+            }}
+          >
             <span>{toast.icon}</span>
-            <span style={{ color:"rgba(255,255,255,.9)" }}>{toast.msg}</span>
+            <span style={{ color: "rgba(255,255,255,.9)" }}>{toast.msg}</span>
           </div>
         )}
 
         {/* Orbs — ONLY these animate */}
-        <div style={{ position:"fixed", inset:0, pointerEvents:"none", overflow:"hidden" }}>
-          <div className="orb-float-slow" style={{
-            position:"absolute", width:700, height:700, borderRadius:"50%",
-            background:`radial-gradient(circle,${theme.orb1},transparent 70%)`,
-            top:-300, left:-200, filter:"blur(50px)",
-          }}/>
-          <div className="orb-float" style={{
-            position:"absolute", width:500, height:500, borderRadius:"50%",
-            background:`radial-gradient(circle,${theme.orb2},transparent 70%)`,
-            bottom:-200, right:-100, filter:"blur(40px)",
-          }}/>
-          <div style={{
-            position:"absolute", width:400, height:400, borderRadius:"50%",
-            background:`radial-gradient(circle,${theme.orb3},transparent 70%)`,
-            top:"40%", left:"50%", filter:"blur(60px)",
-          }}/>
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            pointerEvents: "none",
+            overflow: "hidden",
+          }}
+        >
+          <div
+            className="orb-float-slow"
+            style={{
+              position: "absolute",
+              width: 700,
+              height: 700,
+              borderRadius: "50%",
+              background: `radial-gradient(circle,${theme.orb1},transparent 70%)`,
+              top: -300,
+              left: -200,
+              filter: "blur(50px)",
+            }}
+          />
+          <div
+            className="orb-float"
+            style={{
+              position: "absolute",
+              width: 500,
+              height: 500,
+              borderRadius: "50%",
+              background: `radial-gradient(circle,${theme.orb2},transparent 70%)`,
+              bottom: -200,
+              right: -100,
+              filter: "blur(40px)",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              width: 400,
+              height: 400,
+              borderRadius: "50%",
+              background: `radial-gradient(circle,${theme.orb3},transparent 70%)`,
+              top: "40%",
+              left: "50%",
+              filter: "blur(60px)",
+            }}
+          />
         </div>
 
-        <div style={{ position:"relative", zIndex:10, maxWidth:960, margin:"0 auto", padding:"clamp(24px,5vw,60px) clamp(16px,4vw,32px) 80px" }}>
-
+        <div
+          style={{
+            position: "relative",
+            zIndex: 10,
+            maxWidth: 960,
+            margin: "0 auto",
+            padding: "clamp(24px,5vw,60px) clamp(16px,4vw,32px) 80px",
+          }}
+        >
           {/* Top Bar */}
-          <div className="fade-up" style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"clamp(32px,5vw,56px)" }}>
-            <div style={{ display:"flex", alignItems:"center", gap:10 }}>
-              <div style={{ width:38, height:38, borderRadius:13, background:"linear-gradient(135deg,#8b5cf6,#f43f5e)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:20, boxShadow:"0 8px 24px rgba(139,92,246,.4)" }}>🌸</div>
-              <span className="playfair" style={{ fontSize:24, fontWeight:700, letterSpacing:"-.02em", color:theme.text }}>Soul</span>
+          <div
+            className="fade-up"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: "clamp(32px,5vw,56px)",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <div
+                style={{
+                  width: 38,
+                  height: 38,
+                  borderRadius: 13,
+                  background: "linear-gradient(135deg,#8b5cf6,#f43f5e)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: 20,
+                  boxShadow: "0 8px 24px rgba(139,92,246,.4)",
+                }}
+              >
+                🌸
+              </div>
+              <span
+                className="playfair"
+                style={{
+                  fontSize: 24,
+                  fontWeight: 700,
+                  letterSpacing: "-.02em",
+                  color: theme.text,
+                }}
+              >
+                Soul
+              </span>
             </div>
-            <div style={{ display:"flex", gap:8, alignItems:"center" }}>
-
+            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
               {/* THEME PICKER — fully working */}
-              <div style={{ position:"relative" }}>
+              <div style={{ position: "relative" }}>
                 <button
-                  onClick={() => setShowThemePicker((x) => !x)}
+                  onClick={() => setShowThemePicker((prev) => !prev)}
                   className="btn-hover"
                   style={{
-                    padding:"8px 14px", borderRadius:12, fontSize:12, fontWeight:700,
-                    border:`1px solid ${theme.border}`, background:theme.surface, color:theme.textMuted,
-                    cursor:"pointer",
+                    padding: "8px 14px",
+                    borderRadius: 12,
+                    fontSize: 12,
+                    fontWeight: 700,
+                    border: `1px solid ${theme.border}`,
+                    background: theme.surface,
+                    color: theme.textMuted,
+                    cursor: "pointer",
                   }}
                 >
                   🎨 {theme.name}
                 </button>
                 {showThemePicker && (
-                  <div className="pop-in" style={{
-                    position:"absolute", top:"calc(100% + 8px)", right:0, zIndex:500,
-                    background:"rgba(8,8,18,.98)", border:"1px solid rgba(255,255,255,.14)",
-                    borderRadius:20, padding:14, display:"flex", flexDirection:"column", gap:6,
-                    minWidth:170, boxShadow:"0 24px 64px rgba(0,0,0,.8)",
-                  }}>
-                    <div style={{ fontSize:10, fontWeight:800, color:"rgba(255,255,255,.3)", textTransform:"uppercase", letterSpacing:".1em", marginBottom:4, paddingLeft:8 }}>
+                  <div
+                    className="pop-in"
+                    style={{
+                      position: "absolute",
+                      top: "calc(100% + 8px)",
+                      right: 0,
+                      zIndex: 500,
+                      background: "rgba(8,8,18,.98)",
+                      border: "1px solid rgba(255,255,255,.14)",
+                      borderRadius: 20,
+                      padding: 14,
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 6,
+                      minWidth: 170,
+                      boxShadow: "0 24px 64px rgba(0,0,0,.8)",
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontSize: 10,
+                        fontWeight: 800,
+                        color: "rgba(255,255,255,.3)",
+                        textTransform: "uppercase",
+                        letterSpacing: ".1em",
+                        marginBottom: 4,
+                        paddingLeft: 8,
+                      }}
+                    >
                       Color Theme
                     </div>
                     {Object.entries(THEMES).map(([key, th]) => (
@@ -970,89 +1099,295 @@ export default function SoulApp() {
                         }}
                         className="theme-option"
                         style={{
-                          display:"flex", alignItems:"center", gap:10, padding:"9px 12px",
-                          borderRadius:12,
-                          background: themeKey === key ? "rgba(255,255,255,.12)" : "transparent",
-                          border:`1px solid ${themeKey === key ? "rgba(255,255,255,.2)" : "transparent"}`,
-                          color: themeKey === key ? "#fff" : "rgba(255,255,255,.55)",
-                          fontSize:13, fontWeight:700, width:"100%",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 10,
+                          padding: "9px 12px",
+                          borderRadius: 12,
+                          background:
+                            themeKey === key
+                              ? "rgba(255,255,255,.12)"
+                              : "transparent",
+                          border: `1px solid ${themeKey === key ? "rgba(255,255,255,.2)" : "transparent"}`,
+                          color:
+                            themeKey === key ? "#fff" : "rgba(255,255,255,.55)",
+                          fontSize: 13,
+                          fontWeight: 700,
+                          width: "100%",
                         }}
                       >
-                        <span style={{ fontSize:16 }}>{th.name.split(" ")[0]}</span>
+                        <span style={{ fontSize: 16 }}>
+                          {th.name.split(" ")[0]}
+                        </span>
                         <span>{th.name.split(" ").slice(1).join(" ")}</span>
-                        {themeKey === key && <span style={{ marginLeft:"auto", fontSize:12, color:"#a78bfa" }}>✓</span>}
+                        {themeKey === key && (
+                          <span
+                            style={{
+                              marginLeft: "auto",
+                              fontSize: 12,
+                              color: "#a78bfa",
+                            }}
+                          >
+                            ✓
+                          </span>
+                        )}
                       </button>
                     ))}
                   </div>
                 )}
               </div>
 
-              <button onClick={() => setScreen("journal")} className="btn-hover" style={{ padding:"8px 14px", borderRadius:12, fontSize:12, fontWeight:600, color:theme.textMuted, border:`1px solid ${theme.border}`, background:theme.surface, cursor:"pointer" }}>
+              <button
+                onClick={() => setScreen("journal")}
+                className="btn-hover"
+                style={{
+                  padding: "8px 14px",
+                  borderRadius: 12,
+                  fontSize: 12,
+                  fontWeight: 600,
+                  color: theme.textMuted,
+                  border: `1px solid ${theme.border}`,
+                  background: theme.surface,
+                  cursor: "pointer",
+                }}
+              >
                 {t.journal}
               </button>
-              <button onClick={() => setScreen("stats")} className="btn-hover" style={{ padding:"8px 14px", borderRadius:12, fontSize:12, fontWeight:600, color:theme.textMuted, border:`1px solid ${theme.border}`, background:theme.surface, cursor:"pointer" }}>
+              <button
+                onClick={() => setScreen("stats")}
+                className="btn-hover"
+                style={{
+                  padding: "8px 14px",
+                  borderRadius: 12,
+                  fontSize: 12,
+                  fontWeight: 600,
+                  color: theme.textMuted,
+                  border: `1px solid ${theme.border}`,
+                  background: theme.surface,
+                  cursor: "pointer",
+                }}
+              >
                 {t.stats}
               </button>
             </div>
           </div>
 
           {/* Hero */}
-          <div className="fade-up" style={{ textAlign:"center", marginBottom:"clamp(32px,5vw,56px)", animationDelay:".05s" }}>
-            <div style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"6px 18px", borderRadius:99, background:theme.surface, border:`1px solid ${theme.border}`, marginBottom:20, fontSize:11, fontWeight:700, color:theme.textFaint, letterSpacing:".12em", textTransform:"uppercase" }}>
+          <div
+            className="fade-up"
+            style={{
+              textAlign: "center",
+              marginBottom: "clamp(32px,5vw,56px)",
+              animationDelay: ".05s",
+            }}
+          >
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "6px 18px",
+                borderRadius: 99,
+                background: theme.surface,
+                border: `1px solid ${theme.border}`,
+                marginBottom: 20,
+                fontSize: 11,
+                fontWeight: 700,
+                color: theme.textFaint,
+                letterSpacing: ".12em",
+                textTransform: "uppercase",
+              }}
+            >
               ✦ Indian Wisdom · {MOODS.length} Moods ✦
             </div>
-            <h1 className="playfair" style={{ fontSize:"clamp(38px,7vw,80px)", fontWeight:900, lineHeight:1.08, marginBottom:16, letterSpacing:"-.03em" }}>
-              <span style={{ display:"block", color:theme.text }}>{t.tagline.split(" ").slice(0,3).join(" ")}</span>
-              <span style={{ display:"block", background:"linear-gradient(135deg,#f59e0b,#f43f5e,#8b5cf6,#06b6d4)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text", backgroundSize:"200% auto", animation:"shimmer 4s linear infinite" }}>
+            <h1
+              className="playfair"
+              style={{
+                fontSize: "clamp(38px,7vw,80px)",
+                fontWeight: 900,
+                lineHeight: 1.08,
+                marginBottom: 16,
+                letterSpacing: "-.03em",
+              }}
+            >
+              <span style={{ display: "block", color: theme.text }}>
+                {t.tagline.split(" ").slice(0, 3).join(" ")}
+              </span>
+              <span
+                style={{
+                  display: "block",
+                  background:
+                    "linear-gradient(135deg,#f59e0b,#f43f5e,#8b5cf6,#06b6d4)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  backgroundSize: "200% auto",
+                  animation: "shimmer 4s linear infinite",
+                }}
+              >
                 {t.tagline.split(" ").slice(3).join(" ")} 🌸
               </span>
             </h1>
-            <p style={{ color:theme.textMuted, fontSize:"clamp(13px,2vw,16px)", maxWidth:500, margin:"0 auto", lineHeight:1.7 }}>
+            <p
+              style={{
+                color: theme.textMuted,
+                fontSize: "clamp(13px,2vw,16px)",
+                maxWidth: 500,
+                margin: "0 auto",
+                lineHeight: 1.7,
+              }}
+            >
               {t.subtitle}
             </p>
           </div>
 
           {/* Stats Strip */}
-          <div className="fade-up" style={{ display:"flex", justifyContent:"center", gap:"clamp(8px,2vw,16px)", marginBottom:"clamp(20px,4vw,36px)", flexWrap:"wrap", animationDelay:".1s" }}>
+          <div
+            className="fade-up"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: "clamp(8px,2vw,16px)",
+              marginBottom: "clamp(20px,4vw,36px)",
+              flexWrap: "wrap",
+              animationDelay: ".1s",
+            }}
+          >
             {[
-              { icon:"🔥", label:t.dayStreak, val:`${streak}d` },
-              { icon:"⚡", label:"XP", val:xp },
-              { icon:"🏆", label:t.level, val:xpLevel },
-              { icon:"📖", label:t.thoughtsRead, val:history.length },
-              { icon:"❤️", label:t.savedQuotes, val:favorites.length },
-              { icon:"📔", label:t.journals, val:journals.length },
+              { icon: "🔥", label: t.dayStreak, val: `${streak}d` },
+              { icon: "⚡", label: "XP", val: xp },
+              { icon: "🏆", label: t.level, val: xpLevel },
+              { icon: "📖", label: t.thoughtsRead, val: history.length },
+              { icon: "❤️", label: t.savedQuotes, val: favorites.length },
+              { icon: "📔", label: t.journals, val: journals.length },
             ].map((s) => (
-              <div key={s.label} style={{ display:"flex", alignItems:"center", gap:8, padding:"8px 14px", borderRadius:14, background:theme.surface, border:`1px solid ${theme.border}`, fontSize:12 }}>
+              <div
+                key={s.label}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "8px 14px",
+                  borderRadius: 14,
+                  background: theme.surface,
+                  border: `1px solid ${theme.border}`,
+                  fontSize: 12,
+                }}
+              >
                 <span>{s.icon}</span>
-                <span style={{ color:theme.textMuted }}>{s.label}</span>
-                <span style={{ fontWeight:800, color:theme.text }}>{s.val}</span>
+                <span style={{ color: theme.textMuted }}>{s.label}</span>
+                <span style={{ fontWeight: 800, color: theme.text }}>
+                  {s.val}
+                </span>
               </div>
             ))}
           </div>
 
           {/* XP Bar */}
-          <div className="fade-up" style={{ maxWidth:400, margin:"0 auto clamp(20px,4vw,36px)", animationDelay:".12s" }}>
-            <div style={{ display:"flex", justifyContent:"space-between", fontSize:11, color:theme.textFaint, marginBottom:6 }}>
-              <span>{t.levelLabel} {xpLevel} 🏆</span>
-              <span>{xpProgress}/100 {t.xpNext} {xpLevel+1}</span>
+          <div
+            className="fade-up"
+            style={{
+              maxWidth: 400,
+              margin: "0 auto clamp(20px,4vw,36px)",
+              animationDelay: ".12s",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                fontSize: 11,
+                color: theme.textFaint,
+                marginBottom: 6,
+              }}
+            >
+              <span>
+                {t.levelLabel} {xpLevel} 🏆
+              </span>
+              <span>
+                {xpProgress}/100 {t.xpNext} {xpLevel + 1}
+              </span>
             </div>
-            <div style={{ height:6, borderRadius:99, background:theme.surface, overflow:"hidden" }}>
-              <div className="xp-bar" style={{ height:"100%", width:`${xpProgress}%`, background:"linear-gradient(90deg,#8b5cf6,#f43f5e)", borderRadius:99 }}/>
+            <div
+              style={{
+                height: 6,
+                borderRadius: 99,
+                background: theme.surface,
+                overflow: "hidden",
+              }}
+            >
+              <div
+                className="xp-bar"
+                style={{
+                  height: "100%",
+                  width: `${xpProgress}%`,
+                  background: "linear-gradient(90deg,#8b5cf6,#f43f5e)",
+                  borderRadius: 99,
+                }}
+              />
             </div>
           </div>
 
           {/* Daily Challenge */}
           {dailyChallenge && (
-            <div className="fade-up" style={{ maxWidth:520, margin:"0 auto clamp(20px,4vw,36px)", padding:"16px 20px", borderRadius:20, background:theme.surface, border:`1px solid ${theme.border}`, display:"flex", alignItems:"center", gap:14, animationDelay:".14s" }}>
-              <div style={{ fontSize:26, flexShrink:0 }}>🎯</div>
-              <div style={{ flex:1 }}>
-                <div style={{ fontSize:10, fontWeight:800, color:"#f59e0b", textTransform:"uppercase", letterSpacing:".1em", marginBottom:4 }}>{t.dailyChallenge}</div>
-                <div style={{ fontSize:13, color:theme.text, lineHeight:1.4 }}>{dailyChallenge}</div>
+            <div
+              className="fade-up"
+              style={{
+                maxWidth: 520,
+                margin: "0 auto clamp(20px,4vw,36px)",
+                padding: "16px 20px",
+                borderRadius: 20,
+                background: theme.surface,
+                border: `1px solid ${theme.border}`,
+                display: "flex",
+                alignItems: "center",
+                gap: 14,
+                animationDelay: ".14s",
+              }}
+            >
+              <div style={{ fontSize: 26, flexShrink: 0 }}>🎯</div>
+              <div style={{ flex: 1 }}>
+                <div
+                  style={{
+                    fontSize: 10,
+                    fontWeight: 800,
+                    color: "#f59e0b",
+                    textTransform: "uppercase",
+                    letterSpacing: ".1em",
+                    marginBottom: 4,
+                  }}
+                >
+                  {t.dailyChallenge}
+                </div>
+                <div
+                  style={{ fontSize: 13, color: theme.text, lineHeight: 1.4 }}
+                >
+                  {dailyChallenge}
+                </div>
               </div>
               <button
-                onClick={() => { if (!challengeDone) { setChallengeDone(true); showToast("+25 XP! 🎉","🏆"); setXp((x)=>x+25); spawnConfetti(); }}}
+                onClick={() => {
+                  if (!challengeDone) {
+                    setChallengeDone(true);
+                    showToast("+25 XP! 🎉", "🏆");
+                    setXp((x) => x + 25);
+                    spawnConfetti();
+                  }
+                }}
                 className="btn-hover"
-                style={{ flexShrink:0, padding:"8px 14px", borderRadius:12, fontSize:11, fontWeight:800, border:"none", background:challengeDone?"rgba(16,185,129,.2)":"rgba(245,158,11,.2)", color:challengeDone?"#10b981":"#f59e0b", cursor:challengeDone?"default":"pointer" }}
+                style={{
+                  flexShrink: 0,
+                  padding: "8px 14px",
+                  borderRadius: 12,
+                  fontSize: 11,
+                  fontWeight: 800,
+                  border: "none",
+                  background: challengeDone
+                    ? "rgba(16,185,129,.2)"
+                    : "rgba(245,158,11,.2)",
+                  color: challengeDone ? "#10b981" : "#f59e0b",
+                  cursor: challengeDone ? "default" : "pointer",
+                }}
               >
                 {challengeDone ? t.done : t.complete}
               </button>
@@ -1060,30 +1395,97 @@ export default function SoulApp() {
           )}
 
           {/* Language Selector */}
-          <div className="fade-up" style={{ display:"flex", justifyContent:"center", gap:8, marginBottom:"clamp(24px,4vw,40px)", animationDelay:".15s" }}>
-            <span style={{ fontSize:12, color:theme.textFaint, alignSelf:"center" }}>{t.bhasha}</span>
+          <div
+            className="fade-up"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: 8,
+              marginBottom: "clamp(24px,4vw,40px)",
+              animationDelay: ".15s",
+            }}
+          >
+            <span
+              style={{
+                fontSize: 12,
+                color: theme.textFaint,
+                alignSelf: "center",
+              }}
+            >
+              {t.bhasha}
+            </span>
             {[
-              { id:"en", label:"EN 🇬🇧" },
-              { id:"hi", label:"हिंदी 🇮🇳" },
-              { id:"pa", label:"ਪੰਜਾਬੀ 🟡" },
+              { id: "en", label: "EN 🇬🇧" },
+              { id: "hi", label: "हिंदी 🇮🇳" },
+              { id: "pa", label: "ਪੰਜਾਬੀ 🟡" },
             ].map((l) => (
-              <button key={l.id} onClick={() => setLang(l.id)} className="btn-hover" style={{
-                padding:"6px 14px", borderRadius:99, fontSize:12, fontWeight:700,
-                border:`1px solid ${lang===l.id?"rgba(255,255,255,.25)":theme.border}`,
-                background:lang===l.id?"rgba(255,255,255,.1)":"transparent",
-                color:lang===l.id?theme.text:theme.textMuted, cursor:"pointer",
-              }}>
+              <button
+                key={l.id}
+                onClick={() => setLang(l.id)}
+                className="btn-hover"
+                style={{
+                  padding: "6px 14px",
+                  borderRadius: 99,
+                  fontSize: 12,
+                  fontWeight: 700,
+                  border: `1px solid ${lang === l.id ? "rgba(255,255,255,.25)" : theme.border}`,
+                  background:
+                    lang === l.id ? "rgba(255,255,255,.1)" : "transparent",
+                  color: lang === l.id ? theme.text : theme.textMuted,
+                  cursor: "pointer",
+                }}
+              >
                 {l.label}
               </button>
             ))}
           </div>
 
           {/* Mood Grid */}
-          <div className="fade-up" style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(clamp(90px,12vw,120px),1fr))", gap:"clamp(8px,1.5vw,12px)", animationDelay:".18s" }}>
+          <div
+            className="fade-up"
+            style={{
+              display: "grid",
+              gridTemplateColumns:
+                "repeat(auto-fill,minmax(clamp(90px,12vw,120px),1fr))",
+              gap: "clamp(8px,1.5vw,12px)",
+              animationDelay: ".18s",
+            }}
+          >
             {MOODS.map((m, i) => (
-              <button key={m.id} className="mood-card" onClick={() => pickMood(m.id)} style={{ padding:"clamp(14px,2.5vw,20px) 10px", borderRadius:22, background:m.bg, border:`1px solid ${m.accent}20`, display:"flex", flexDirection:"column", alignItems:"center", gap:7, animationDelay:`${i*35}ms` }}>
-                <span style={{ fontSize:"clamp(24px,4vw,30px)", filter:"drop-shadow(0 4px 8px rgba(0,0,0,.3))" }}>{m.emoji}</span>
-                <span style={{ fontSize:"clamp(9px,1.2vw,11px)", fontWeight:800, color:m.accent, textTransform:"uppercase", letterSpacing:".06em", textAlign:"center" }}>
+              <button
+                key={m.id}
+                className="mood-card"
+                onClick={() => pickMood(m.id)}
+                style={{
+                  padding: "clamp(14px,2.5vw,20px) 10px",
+                  borderRadius: 22,
+                  background: m.bg,
+                  border: `1px solid ${m.accent}20`,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: 7,
+                  animationDelay: `${i * 35}ms`,
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: "clamp(24px,4vw,30px)",
+                    filter: "drop-shadow(0 4px 8px rgba(0,0,0,.3))",
+                  }}
+                >
+                  {m.emoji}
+                </span>
+                <span
+                  style={{
+                    fontSize: "clamp(9px,1.2vw,11px)",
+                    fontWeight: 800,
+                    color: m.accent,
+                    textTransform: "uppercase",
+                    letterSpacing: ".06em",
+                    textAlign: "center",
+                  }}
+                >
                   {getMoodLabel(m)}
                 </span>
               </button>
@@ -1092,19 +1494,80 @@ export default function SoulApp() {
 
           {/* Recent Reads */}
           {history.length > 0 && (
-            <div className="fade-up" style={{ marginTop:"clamp(32px,5vw,56px)", animationDelay:".3s" }}>
-              <div style={{ fontSize:11, fontWeight:800, color:theme.textFaint, textTransform:"uppercase", letterSpacing:".12em", marginBottom:14 }}>{t.recentRead}</div>
-              <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
-                {history.slice(0,3).map((h,i) => (
-                  <div key={i} onClick={() => { setMood(h.mood); setLang(h.lang||"en"); setScreen("mood"); setTab("thought"); }}
-                    style={{ display:"flex", gap:12, alignItems:"flex-start", padding:"14px 16px", borderRadius:16, background:theme.surface, border:`1px solid ${theme.border}`, cursor:"pointer", transition:"background .2s" }}
-                    onMouseEnter={(e) => e.currentTarget.style.background=theme.surfaceStrong}
-                    onMouseLeave={(e) => e.currentTarget.style.background=theme.surface}
+            <div
+              className="fade-up"
+              style={{
+                marginTop: "clamp(32px,5vw,56px)",
+                animationDelay: ".3s",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 11,
+                  fontWeight: 800,
+                  color: theme.textFaint,
+                  textTransform: "uppercase",
+                  letterSpacing: ".12em",
+                  marginBottom: 14,
+                }}
+              >
+                {t.recentRead}
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                {history.slice(0, 3).map((h, i) => (
+                  <div
+                    key={i}
+                    onClick={() => {
+                      setMood(h.mood);
+                      setLang(h.lang || "en");
+                      setScreen("mood");
+                      setTab("thought");
+                    }}
+                    style={{
+                      display: "flex",
+                      gap: 12,
+                      alignItems: "flex-start",
+                      padding: "14px 16px",
+                      borderRadius: 16,
+                      background: theme.surface,
+                      border: `1px solid ${theme.border}`,
+                      cursor: "pointer",
+                      transition: "background .2s",
+                    }}
+                    onMouseEnter={(e) =>
+                      (e.currentTarget.style.background = theme.surfaceStrong)
+                    }
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.background = theme.surface)
+                    }
                   >
-                    <span style={{ fontSize:20, flexShrink:0 }}>{MOODS.find((m)=>m.id===h.mood)?.emoji}</span>
-                    <div style={{ flex:1, minWidth:0 }}>
-                      <p style={{ fontSize:12, color:theme.textMuted, lineHeight:1.5, overflow:"hidden", display:"-webkit-box", WebkitLineClamp:2, WebkitBoxOrient:"vertical" }}>"{h.quote}"</p>
-                      <p style={{ fontSize:10, color:theme.textFaint, marginTop:4 }}>— {h.author} · {MOODS.find((m)=>m.id===h.mood)?.label}</p>
+                    <span style={{ fontSize: 20, flexShrink: 0 }}>
+                      {MOODS.find((m) => m.id === h.mood)?.emoji}
+                    </span>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <p
+                        style={{
+                          fontSize: 12,
+                          color: theme.textMuted,
+                          lineHeight: 1.5,
+                          overflow: "hidden",
+                          display: "-webkit-box",
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: "vertical",
+                        }}
+                      >
+                        "{h.quote}"
+                      </p>
+                      <p
+                        style={{
+                          fontSize: 10,
+                          color: theme.textFaint,
+                          marginTop: 4,
+                        }}
+                      >
+                        — {h.author} ·{" "}
+                        {MOODS.find((m) => m.id === h.mood)?.label}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -1112,7 +1575,16 @@ export default function SoulApp() {
             </div>
           )}
 
-          <div style={{ textAlign:"center", marginTop:48, fontSize:11, color:theme.textFaint }}>{t.footer}</div>
+          <div
+            style={{
+              textAlign: "center",
+              marginTop: 48,
+              fontSize: 11,
+              color: theme.textFaint,
+            }}
+          >
+            {t.footer}
+          </div>
         </div>
       </div>
     );
