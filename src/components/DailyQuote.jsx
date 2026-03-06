@@ -1727,40 +1727,191 @@ export default function SoulApp() {
   // MOOD DETAIL SCREEN
   // ══════════════════════════════════════════════════════════════════
   return (
-    <div style={{ minHeight:"100vh", background:theme.bg, color:theme.text, position:"relative", overflow:"hidden" }}>
+    <div
+      style={{
+        minHeight: "100vh",
+        background: theme.bg,
+        color: theme.text,
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
       <style>{css}</style>
 
       {confetti.map((c) => (
-        <div key={c.id} style={{ position:"fixed", top:0, left:`${c.x}%`, width:c.size, height:c.size, borderRadius:c.shape, background:c.color, zIndex:999, animation:`confettiFall ${1.5+Math.random()}s ${c.delay}s ease-in forwards`, pointerEvents:"none" }}/>
+        <div
+          key={c.id}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: `${c.x}%`,
+            width: c.size,
+            height: c.size,
+            borderRadius: c.shape,
+            background: c.color,
+            zIndex: 999,
+            animation: `confettiFall ${1.5 + Math.random()}s ${c.delay}s ease-in forwards`,
+            pointerEvents: "none",
+          }}
+        />
       ))}
 
       {toast && (
-        <div className="pop-in" style={{ position:"fixed", top:20, left:"50%", transform:"translateX(-50%)", zIndex:300, display:"flex", alignItems:"center", gap:8, padding:"10px 20px", borderRadius:16, background:"rgba(10,10,20,.97)", border:`1px solid ${accent}40`, boxShadow:"0 12px 40px rgba(0,0,0,.6)", fontSize:13, fontWeight:700, whiteSpace:"nowrap" }}>
+        <div
+          className="pop-in"
+          style={{
+            position: "fixed",
+            top: 20,
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 300,
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+            padding: "10px 20px",
+            borderRadius: 16,
+            background: "rgba(10,10,20,.97)",
+            border: `1px solid ${accent}40`,
+            boxShadow: "0 12px 40px rgba(0,0,0,.6)",
+            fontSize: 13,
+            fontWeight: 700,
+            whiteSpace: "nowrap",
+          }}
+        >
           <span>{toast.icon}</span>
-          <span style={{ color:"rgba(255,255,255,.9)" }}>{toast.msg}</span>
+          <span style={{ color: "rgba(255,255,255,.9)" }}>{toast.msg}</span>
         </div>
       )}
 
       {/* Share Modal */}
       {shareOpen && thought && (
-        <div className="fade-in" style={{ position:"fixed", inset:0, zIndex:200, display:"flex", alignItems:"flex-end", justifyContent:"center", padding:16, background:"rgba(0,0,0,.85)" }} onClick={() => setShareOpen(false)}>
-          <div className="slide-in" style={{ background:"#111122", border:`1px solid ${accent}25`, borderRadius:28, padding:24, width:"100%", maxWidth:420 }} onClick={(e) => e.stopPropagation()}>
-            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:16 }}>
-              <span style={{ fontWeight:800, fontSize:16 }}>{t.share} 🌸</span>
-              <button onClick={() => setShareOpen(false)} style={{ width:32, height:32, borderRadius:10, background:"rgba(255,255,255,.06)", border:"none", cursor:"pointer", color:"rgba(255,255,255,.5)", fontSize:16 }}>✕</button>
+        <div
+          className="fade-in"
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 200,
+            display: "flex",
+            alignItems: "flex-end",
+            justifyContent: "center",
+            padding: 16,
+            background: "rgba(0,0,0,.85)",
+          }}
+          onClick={() => setShareOpen(false)}
+        >
+          <div
+            className="slide-in"
+            style={{
+              background: "#111122",
+              border: `1px solid ${accent}25`,
+              borderRadius: 28,
+              padding: 24,
+              width: "100%",
+              maxWidth: 420,
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: 16,
+              }}
+            >
+              <span style={{ fontWeight: 800, fontSize: 16 }}>
+                {t.share} 🌸
+              </span>
+              <button
+                onClick={() => setShareOpen(false)}
+                style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: 10,
+                  background: "rgba(255,255,255,.06)",
+                  border: "none",
+                  cursor: "pointer",
+                  color: "rgba(255,255,255,.5)",
+                  fontSize: 16,
+                }}
+              >
+                ✕
+              </button>
             </div>
-            <div style={{ borderLeft:`3px solid ${accent}`, paddingLeft:14, marginBottom:20, fontSize:13, color:"rgba(255,255,255,.6)", fontStyle:"italic", lineHeight:1.7 }}>
-              "{thought.quote.slice(0,100)}..."<br/>
-              <span style={{ fontSize:11, color:accent }}>— {thought.author}</span>
+            <div
+              style={{
+                borderLeft: `3px solid ${accent}`,
+                paddingLeft: 14,
+                marginBottom: 20,
+                fontSize: 13,
+                color: "rgba(255,255,255,.6)",
+                fontStyle: "italic",
+                lineHeight: 1.7,
+              }}
+            >
+              "{thought.quote.slice(0, 100)}..."
+              <br />
+              <span style={{ fontSize: 11, color: accent }}>
+                — {thought.author}
+              </span>
             </div>
-            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10 }}>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: 10,
+              }}
+            >
               {[
-                { label:"🐦 Twitter/X", color:"#1d9bf0", fn:()=>window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(`"${thought.quote}" — ${thought.author} 🌸`)}`) },
-                { label:"💬 WhatsApp", color:"#25d366", fn:()=>window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(`"${thought.quote}"\n— ${thought.author}\n\n🌸 Soul App`)}`) },
-                { label:copied?"✅ Copied!":"📋 Copy", color:accent, fn:copyThought },
-                { label:"🔊 Listen", color:"#10b981", fn:()=>{ speak(); setShareOpen(false); } },
+                {
+                  label: "🐦 Twitter/X",
+                  color: "#1d9bf0",
+                  fn: () =>
+                    window.open(
+                      `https://twitter.com/intent/tweet?text=${encodeURIComponent(`"${thought.quote}" — ${thought.author} 🌸`)}`,
+                    ),
+                },
+                {
+                  label: "💬 WhatsApp",
+                  color: "#25d366",
+                  fn: () =>
+                    window.open(
+                      `https://api.whatsapp.com/send?text=${encodeURIComponent(`"${thought.quote}"\n— ${thought.author}\n\n🌸 Soul App`)}`,
+                    ),
+                },
+                {
+                  label: copied ? "✅ Copied!" : "📋 Copy",
+                  color: accent,
+                  fn: copyThought,
+                },
+                {
+                  label: "🔊 Listen",
+                  color: "#10b981",
+                  fn: () => {
+                    speak();
+                    setShareOpen(false);
+                  },
+                },
               ].map((b) => (
-                <button key={b.label} onClick={b.fn} className="btn-hover" style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:8, padding:12, borderRadius:16, background:`${b.color}12`, border:`1px solid ${b.color}25`, fontSize:12, fontWeight:700, cursor:"pointer", color:b.color }}>
+                <button
+                  key={b.label}
+                  onClick={b.fn}
+                  className="btn-hover"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 8,
+                    padding: 12,
+                    borderRadius: 16,
+                    background: `${b.color}12`,
+                    border: `1px solid ${b.color}25`,
+                    fontSize: 12,
+                    fontWeight: 700,
+                    cursor: "pointer",
+                    color: b.color,
+                  }}
+                >
                   {b.label}
                 </button>
               ))}
@@ -1770,57 +1921,260 @@ export default function SoulApp() {
       )}
 
       {/* Ambient orbs ONLY */}
-      <div style={{ position:"fixed", inset:0, pointerEvents:"none", overflow:"hidden", zIndex:0 }}>
-        <div className="orb-float" style={{ position:"absolute", width:700, height:700, borderRadius:"50%", background:`radial-gradient(circle,${accent}14,transparent 70%)`, top:-300, left:-200, filter:"blur(40px)" }}/>
-        <div style={{ position:"absolute", width:400, height:400, borderRadius:"50%", background:`radial-gradient(circle,${accent}07,transparent 70%)`, bottom:-100, right:-100, filter:"blur(30px)" }}/>
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          pointerEvents: "none",
+          overflow: "hidden",
+          zIndex: 0,
+        }}
+      >
+        <div
+          className="orb-float"
+          style={{
+            position: "absolute",
+            width: 700,
+            height: 700,
+            borderRadius: "50%",
+            background: `radial-gradient(circle,${accent}14,transparent 70%)`,
+            top: -300,
+            left: -200,
+            filter: "blur(40px)",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            width: 400,
+            height: 400,
+            borderRadius: "50%",
+            background: `radial-gradient(circle,${accent}07,transparent 70%)`,
+            bottom: -100,
+            right: -100,
+            filter: "blur(30px)",
+          }}
+        />
       </div>
 
-      <div style={{ position:"relative", zIndex:10, maxWidth:720, margin:"0 auto", padding:"clamp(16px,3vw,28px) clamp(14px,3vw,24px) 80px" }}>
-
+      <div
+        style={{
+          position: "relative",
+          zIndex: 10,
+          maxWidth: 720,
+          margin: "0 auto",
+          padding: "clamp(16px,3vw,28px) clamp(14px,3vw,24px) 80px",
+        }}
+      >
         {/* Top Bar */}
-        <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:20 }}>
-          <button onClick={() => { setScreen("home"); setMood(null); stopAmbientMusic(audioCtxRef,gainNodeRef,nodesRef); setActiveSong(null); }} className="btn-hover" style={{ padding:"8px 14px", borderRadius:12, fontSize:12, fontWeight:700, color:theme.textMuted, border:`1px solid ${theme.border}`, background:theme.surface, cursor:"pointer" }}>← Moods</button>
-          <div style={{ display:"flex", gap:6, alignItems:"center" }}>
-            {[{id:"en",label:"EN"},{id:"hi",label:"हिं"},{id:"pa",label:"ਪੰਜ"}].map((l) => (
-              <button key={l.id} onClick={() => { setLang(l.id); loadNewThought(mood,l.id); }} className="btn-hover" style={{ padding:"5px 10px", borderRadius:99, fontSize:11, fontWeight:800, border:`1px solid ${lang===l.id?accent+"50":theme.border}`, background:lang===l.id?`${accent}18`:"transparent", color:lang===l.id?accent:theme.textMuted, cursor:"pointer" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: 20,
+          }}
+        >
+          <button
+            onClick={() => {
+              setScreen("home");
+              setMood(null);
+              stopAmbientMusic(audioCtxRef, gainNodeRef, nodesRef);
+              setActiveSong(null);
+            }}
+            className="btn-hover"
+            style={{
+              padding: "8px 14px",
+              borderRadius: 12,
+              fontSize: 12,
+              fontWeight: 700,
+              color: theme.textMuted,
+              border: `1px solid ${theme.border}`,
+              background: theme.surface,
+              cursor: "pointer",
+            }}
+          >
+            ← Moods
+          </button>
+          <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+            {[
+              { id: "en", label: "EN" },
+              { id: "hi", label: "हिं" },
+              { id: "pa", label: "ਪੰਜ" },
+            ].map((l) => (
+              <button
+                key={l.id}
+                onClick={() => {
+                  setLang(l.id);
+                  loadNewThought(mood, l.id);
+                }}
+                className="btn-hover"
+                style={{
+                  padding: "5px 10px",
+                  borderRadius: 99,
+                  fontSize: 11,
+                  fontWeight: 800,
+                  border: `1px solid ${lang === l.id ? accent + "50" : theme.border}`,
+                  background: lang === l.id ? `${accent}18` : "transparent",
+                  color: lang === l.id ? accent : theme.textMuted,
+                  cursor: "pointer",
+                }}
+              >
                 {l.label}
               </button>
             ))}
-            <button onClick={toggleMusic} className="btn-hover" style={{ width:34, height:34, borderRadius:11, background:theme.surface, border:`1px solid ${musicOn?accent+"40":theme.border}`, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", fontSize:15, color:musicOn?accent:theme.textMuted }}>
-              {musicOn?"🎵":"🔇"}
+            <button
+              onClick={toggleMusic}
+              className="btn-hover"
+              style={{
+                width: 34,
+                height: 34,
+                borderRadius: 11,
+                background: theme.surface,
+                border: `1px solid ${musicOn ? accent + "40" : theme.border}`,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: 15,
+                color: musicOn ? accent : theme.textMuted,
+              }}
+            >
+              {musicOn ? "🎵" : "🔇"}
             </button>
           </div>
         </div>
 
         {/* Mood Badge — NO animation class */}
-        <div className="fade-in" style={{ display:"flex", alignItems:"center", gap:14, marginBottom:20 }}>
-          <div style={{ width:52, height:52, borderRadius:16, background:`linear-gradient(135deg,${moodCfg.grad[0]},${moodCfg.grad[1]})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:26, flexShrink:0, boxShadow:`0 12px 32px ${accent}35` }}>
+        <div
+          className="fade-in"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 14,
+            marginBottom: 20,
+          }}
+        >
+          <div
+            style={{
+              width: 52,
+              height: 52,
+              borderRadius: 16,
+              background: `linear-gradient(135deg,${moodCfg.grad[0]},${moodCfg.grad[1]})`,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: 26,
+              flexShrink: 0,
+              boxShadow: `0 12px 32px ${accent}35`,
+            }}
+          >
             {moodCfg.emoji}
           </div>
-          <div style={{ flex:1 }}>
-            <div style={{ fontSize:22, fontWeight:800, lineHeight:1.1, color:theme.text }}>{getMoodLabel(moodCfg)}</div>
+          <div style={{ flex: 1 }}>
+            <div
+              style={{
+                fontSize: 22,
+                fontWeight: 800,
+                lineHeight: 1.1,
+                color: theme.text,
+              }}
+            >
+              {getMoodLabel(moodCfg)}
+            </div>
           </div>
-          <div style={{ fontSize:11, color:theme.textFaint, display:"flex", gap:10 }}>
-            <span>🔥{streak}d</span><span>⚡{xp}xp</span>
+          <div
+            style={{
+              fontSize: 11,
+              color: theme.textFaint,
+              display: "flex",
+              gap: 10,
+            }}
+          >
+            <span>🔥{streak}d</span>
+            <span>⚡{xp}xp</span>
           </div>
         </div>
 
         {/* Music indicator — static, no vibration */}
         {musicOn && (
-          <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:16, padding:"8px 14px", borderRadius:12, background:`${accent}10`, border:`1px solid ${accent}20`, width:"fit-content" }}>
-            <div style={{ display:"flex", gap:2, alignItems:"center" }}>
-              {[1,2,3,4].map((b) => (
-                <div key={b} className="sound-bar" style={{ width:3, borderRadius:99, background:accent, animationDelay:`${b*0.15}s`, height:4 }}/>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              marginBottom: 16,
+              padding: "8px 14px",
+              borderRadius: 12,
+              background: `${accent}10`,
+              border: `1px solid ${accent}20`,
+              width: "fit-content",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                gap: 2,
+                alignItems: "flex-end",
+                height: 14, // FIXED HEIGHT
+                overflow: "hidden",
+              }}
+            >
+              {[1, 2, 3, 4].map((b) => (
+                <div
+                  key={b}
+                  className="sound-bar"
+                  style={{
+                    width: 3,
+                    height: 10, // base height
+                    borderRadius: 99,
+                    background: accent,
+                    animationDelay: `${b * 0.15}s`,
+                  }}
+                />
               ))}
             </div>
-            <span style={{ fontSize:11, fontWeight:700, color:accent }}>{t.musicOn}</span>
+
+            <span style={{ fontSize: 11, fontWeight: 700, color: accent }}>
+              {t.musicOn}
+            </span>
           </div>
         )}
 
         {/* Tabs */}
-        <div className="sb-hide" style={{ display:"flex", gap:4, padding:4, borderRadius:18, background:theme.surface, border:`1px solid ${theme.border}`, marginBottom:20, overflowX:"auto" }}>
-          {Object.entries(t.tabs).map(([id,label]) => (
-            <button key={id} className="tab-btn" onClick={() => setTab(id)} style={{ padding:"9px 14px", borderRadius:14, fontSize:12, fontWeight:800, whiteSpace:"nowrap", flexShrink:0, background:tab===id?`linear-gradient(135deg,${accent}28,${accent}12)`:"transparent", border:`1px solid ${tab===id?accent+"40":"transparent"}`, color:tab===id?accent:theme.textMuted }}>
+        <div
+          className="sb-hide"
+          style={{
+            display: "flex",
+            gap: 4,
+            padding: 4,
+            borderRadius: 18,
+            background: theme.surface,
+            border: `1px solid ${theme.border}`,
+            marginBottom: 20,
+            overflowX: "auto",
+          }}
+        >
+          {Object.entries(t.tabs).map(([id, label]) => (
+            <button
+              key={id}
+              className="tab-btn"
+              onClick={() => setTab(id)}
+              style={{
+                padding: "9px 14px",
+                borderRadius: 14,
+                fontSize: 12,
+                fontWeight: 800,
+                whiteSpace: "nowrap",
+                flexShrink: 0,
+                background:
+                  tab === id
+                    ? `linear-gradient(135deg,${accent}28,${accent}12)`
+                    : "transparent",
+                border: `1px solid ${tab === id ? accent + "40" : "transparent"}`,
+                color: tab === id ? accent : theme.textMuted,
+              }}
+            >
               {label}
             </button>
           ))}
@@ -1830,65 +2184,374 @@ export default function SoulApp() {
         {tab === "thought" && (
           <div>
             {loading ? (
-              <div style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", minHeight:300, gap:16 }}>
-                <div style={{ width:50, height:50, borderRadius:"50%", border:`3px solid ${accent}30`, borderTopColor:accent, animation:"spin 1s linear infinite" }}/>
-                <p style={{ color:theme.textMuted, fontSize:14 }}>{t.aiThinking}</p>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  minHeight: 300,
+                  gap: 16,
+                }}
+              >
+                <div
+                  style={{
+                    width: 50,
+                    height: 50,
+                    borderRadius: "50%",
+                    border: `3px solid ${accent}30`,
+                    borderTopColor: accent,
+                    animation: "spin 1s linear infinite",
+                  }}
+                />
+                <p style={{ color: theme.textMuted, fontSize: 14 }}>
+                  {t.aiThinking}
+                </p>
               </div>
             ) : thought ? (
               <div className="fade-up">
-                <div style={{ borderRadius:28, overflow:"hidden", border:`1px solid ${accent}18`, boxShadow:`0 0 80px ${accent}08,0 30px 80px rgba(0,0,0,.5)`, marginBottom:16 }}>
-                  <div style={{ height:4, background:`linear-gradient(90deg,${moodCfg.grad[0]},${moodCfg.grad[1]})` }}/>
-                  <div style={{ padding:"clamp(20px,4vw,34px)", background:"linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,.02))" }}>
-                    <div className="playfair" style={{ fontSize:100, lineHeight:0.5, color:accent, opacity:0.1, userSelect:"none", marginBottom:10 }}>"</div>
-                    <p className="playfair" style={{ fontSize:"clamp(18px,3.5vw,26px)", fontStyle:"italic", lineHeight:1.6, color:theme.text, marginBottom:22, letterSpacing:".01em" }}>{thought.quote}</p>
-                    <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", flexWrap:"wrap", gap:12 }}>
+                <div
+                  style={{
+                    borderRadius: 28,
+                    overflow: "hidden",
+                    border: `1px solid ${accent}18`,
+                    boxShadow: `0 0 80px ${accent}08,0 30px 80px rgba(0,0,0,.5)`,
+                    marginBottom: 16,
+                  }}
+                >
+                  <div
+                    style={{
+                      height: 4,
+                      background: `linear-gradient(90deg,${moodCfg.grad[0]},${moodCfg.grad[1]})`,
+                    }}
+                  />
+                  <div
+                    style={{
+                      padding: "clamp(20px,4vw,34px)",
+                      background:
+                        "linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,.02))",
+                    }}
+                  >
+                    <div
+                      className="playfair"
+                      style={{
+                        fontSize: 100,
+                        lineHeight: 0.5,
+                        color: accent,
+                        opacity: 0.1,
+                        userSelect: "none",
+                        marginBottom: 10,
+                      }}
+                    >
+                      "
+                    </div>
+                    <p
+                      className="playfair"
+                      style={{
+                        fontSize: "clamp(18px,3.5vw,26px)",
+                        fontStyle: "italic",
+                        lineHeight: 1.6,
+                        color: theme.text,
+                        marginBottom: 22,
+                        letterSpacing: ".01em",
+                      }}
+                    >
+                      {thought.quote}
+                    </p>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        flexWrap: "wrap",
+                        gap: 12,
+                      }}
+                    >
                       <div>
-                        <p style={{ fontSize:15, fontWeight:800, color:accent }}>— {thought.author}</p>
-                        <p style={{ fontSize:10, color:theme.textFaint, marginTop:3 }}>{moodCfg.emoji} {lang.toUpperCase()} · {thought.quote.length} chars</p>
+                        <p
+                          style={{
+                            fontSize: 15,
+                            fontWeight: 800,
+                            color: accent,
+                          }}
+                        >
+                          — {thought.author}
+                        </p>
+                        <p
+                          style={{
+                            fontSize: 10,
+                            color: theme.textFaint,
+                            marginTop: 3,
+                          }}
+                        >
+                          {moodCfg.emoji} {lang.toUpperCase()} ·{" "}
+                          {thought.quote.length} chars
+                        </p>
                       </div>
-                      <div style={{ display:"flex", gap:8 }}>
-                        <button onClick={() => setShowAffirmation((x)=>!x)} className="btn-hover" style={{ padding:"6px 12px", borderRadius:99, fontSize:11, fontWeight:700, border:`1px solid ${accent}35`, background:`${accent}15`, color:accent, cursor:"pointer" }}>{t.affirmation}</button>
-                        <button onClick={() => setExpanded((e)=>!e)} className="btn-hover" style={{ padding:"6px 12px", borderRadius:99, fontSize:11, fontWeight:700, border:`1px solid ${accent}35`, background:`${accent}15`, color:accent, cursor:"pointer" }}>📖 {expanded?t.hide:t.explain}</button>
+                      <div style={{ display: "flex", gap: 8 }}>
+                        <button
+                          onClick={() => setShowAffirmation((x) => !x)}
+                          className="btn-hover"
+                          style={{
+                            padding: "6px 12px",
+                            borderRadius: 99,
+                            fontSize: 11,
+                            fontWeight: 700,
+                            border: `1px solid ${accent}35`,
+                            background: `${accent}15`,
+                            color: accent,
+                            cursor: "pointer",
+                          }}
+                        >
+                          {t.affirmation}
+                        </button>
+                        <button
+                          onClick={() => setExpanded((e) => !e)}
+                          className="btn-hover"
+                          style={{
+                            padding: "6px 12px",
+                            borderRadius: 99,
+                            fontSize: 11,
+                            fontWeight: 700,
+                            border: `1px solid ${accent}35`,
+                            background: `${accent}15`,
+                            color: accent,
+                            cursor: "pointer",
+                          }}
+                        >
+                          📖 {expanded ? t.hide : t.explain}
+                        </button>
                       </div>
                     </div>
                     {showAffirmation && thought.affirmation && (
-                      <div className="pop-in" style={{ marginTop:18, padding:18, borderRadius:20, background:`${accent}12`, border:`1px solid ${accent}25`, textAlign:"center" }}>
-                        <p style={{ fontSize:11, fontWeight:800, color:accent, textTransform:"uppercase", letterSpacing:".1em", marginBottom:8 }}>{t.todayAffirmation}</p>
-                        <p className="playfair" style={{ fontSize:"clamp(16px,3vw,22px)", fontStyle:"italic", color:theme.text, lineHeight:1.5 }}>"{thought.affirmation}"</p>
+                      <div
+                        className="pop-in"
+                        style={{
+                          marginTop: 18,
+                          padding: 18,
+                          borderRadius: 20,
+                          background: `${accent}12`,
+                          border: `1px solid ${accent}25`,
+                          textAlign: "center",
+                        }}
+                      >
+                        <p
+                          style={{
+                            fontSize: 11,
+                            fontWeight: 800,
+                            color: accent,
+                            textTransform: "uppercase",
+                            letterSpacing: ".1em",
+                            marginBottom: 8,
+                          }}
+                        >
+                          {t.todayAffirmation}
+                        </p>
+                        <p
+                          className="playfair"
+                          style={{
+                            fontSize: "clamp(16px,3vw,22px)",
+                            fontStyle: "italic",
+                            color: theme.text,
+                            lineHeight: 1.5,
+                          }}
+                        >
+                          "{thought.affirmation}"
+                        </p>
                       </div>
                     )}
                     {expanded && (
-                      <div className="fade-up" style={{ marginTop:18, padding:18, borderRadius:20, background:`${accent}10`, border:`1px solid ${accent}18` }}>
-                        <p style={{ fontSize:11, fontWeight:800, color:accent, textTransform:"uppercase", letterSpacing:".1em", marginBottom:10 }}>{t.explanation}</p>
-                        <p style={{ fontSize:14, color:theme.textMuted, lineHeight:1.8 }}>{thought.explanation}</p>
+                      <div
+                        className="fade-up"
+                        style={{
+                          marginTop: 18,
+                          padding: 18,
+                          borderRadius: 20,
+                          background: `${accent}10`,
+                          border: `1px solid ${accent}18`,
+                        }}
+                      >
+                        <p
+                          style={{
+                            fontSize: 11,
+                            fontWeight: 800,
+                            color: accent,
+                            textTransform: "uppercase",
+                            letterSpacing: ".1em",
+                            marginBottom: 10,
+                          }}
+                        >
+                          {t.explanation}
+                        </p>
+                        <p
+                          style={{
+                            fontSize: 14,
+                            color: theme.textMuted,
+                            lineHeight: 1.8,
+                          }}
+                        >
+                          {thought.explanation}
+                        </p>
                       </div>
                     )}
                   </div>
                 </div>
-                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10, marginBottom:16 }}>
-                  <button onClick={() => loadNewThought()} className="btn-hover" style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:8, padding:"clamp(12px,2vw,16px)", borderRadius:18, fontSize:13, fontWeight:800, border:"none", background:`linear-gradient(135deg,${accent},${accent}bb)`, color:"#fff", boxShadow:`0 10px 30px ${accent}30`, cursor:"pointer" }}>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr",
+                    gap: 10,
+                    marginBottom: 16,
+                  }}
+                >
+                  <button
+                    onClick={() => loadNewThought()}
+                    className="btn-hover"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: 8,
+                      padding: "clamp(12px,2vw,16px)",
+                      borderRadius: 18,
+                      fontSize: 13,
+                      fontWeight: 800,
+                      border: "none",
+                      background: `linear-gradient(135deg,${accent},${accent}bb)`,
+                      color: "#fff",
+                      boxShadow: `0 10px 30px ${accent}30`,
+                      cursor: "pointer",
+                    }}
+                  >
                     {t.newThought}
                   </button>
-                  <button onClick={toggleFav} className="btn-hover" style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:8, padding:"clamp(12px,2vw,16px)", borderRadius:18, fontSize:13, fontWeight:800, border:`1px solid ${isFav?"#fb7185":"rgba(255,255,255,.12)"}`, background:isFav?"rgba(251,113,133,.18)":theme.surface, color:isFav?"#fb7185":theme.textMuted, cursor:"pointer" }}>
-                    {isFav?t.saved:t.save}
+                  <button
+                    onClick={toggleFav}
+                    className="btn-hover"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: 8,
+                      padding: "clamp(12px,2vw,16px)",
+                      borderRadius: 18,
+                      fontSize: 13,
+                      fontWeight: 800,
+                      border: `1px solid ${isFav ? "#fb7185" : "rgba(255,255,255,.12)"}`,
+                      background: isFav
+                        ? "rgba(251,113,133,.18)"
+                        : theme.surface,
+                      color: isFav ? "#fb7185" : theme.textMuted,
+                      cursor: "pointer",
+                    }}
+                  >
+                    {isFav ? t.saved : t.save}
                   </button>
-                  <button onClick={copyThought} className="btn-hover" style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:8, padding:"clamp(12px,2vw,16px)", borderRadius:18, fontSize:13, fontWeight:800, border:`1px solid ${theme.border}`, background:theme.surface, color:theme.textMuted, cursor:"pointer" }}>
-                    {copied?t.copied:t.copy}
+                  <button
+                    onClick={copyThought}
+                    className="btn-hover"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: 8,
+                      padding: "clamp(12px,2vw,16px)",
+                      borderRadius: 18,
+                      fontSize: 13,
+                      fontWeight: 800,
+                      border: `1px solid ${theme.border}`,
+                      background: theme.surface,
+                      color: theme.textMuted,
+                      cursor: "pointer",
+                    }}
+                  >
+                    {copied ? t.copied : t.copy}
                   </button>
-                  <button onClick={() => setShareOpen(true)} className="btn-hover" style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:8, padding:"clamp(12px,2vw,16px)", borderRadius:18, fontSize:13, fontWeight:800, border:`1px solid ${theme.border}`, background:theme.surface, color:theme.textMuted, cursor:"pointer" }}>
+                  <button
+                    onClick={() => setShareOpen(true)}
+                    className="btn-hover"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: 8,
+                      padding: "clamp(12px,2vw,16px)",
+                      borderRadius: 18,
+                      fontSize: 13,
+                      fontWeight: 800,
+                      border: `1px solid ${theme.border}`,
+                      background: theme.surface,
+                      color: theme.textMuted,
+                      cursor: "pointer",
+                    }}
+                  >
                     {t.share}
                   </button>
-                  <button onClick={speak} className="btn-hover" style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:8, padding:"clamp(12px,2vw,16px)", borderRadius:18, fontSize:13, fontWeight:800, border:`1px solid ${theme.border}`, background:theme.surface, color:theme.textMuted, gridColumn:"span 2", cursor:"pointer" }}>
+                  <button
+                    onClick={speak}
+                    className="btn-hover"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: 8,
+                      padding: "clamp(12px,2vw,16px)",
+                      borderRadius: 18,
+                      fontSize: 13,
+                      fontWeight: 800,
+                      border: `1px solid ${theme.border}`,
+                      background: theme.surface,
+                      color: theme.textMuted,
+                      gridColumn: "span 2",
+                      cursor: "pointer",
+                    }}
+                  >
                     {t.listen}
                   </button>
                 </div>
-                <div style={{ padding:18, borderRadius:20, background:`${accent}08`, border:`1px solid ${accent}15`, display:"flex", alignItems:"center", gap:14 }}>
-                  <span style={{ fontSize:24 }}>📔</span>
-                  <div style={{ flex:1 }}>
-                    <p style={{ fontSize:13, fontWeight:700, color:theme.textMuted, marginBottom:3 }}>{t.journalPrompt}</p>
-                    <p style={{ fontSize:11, color:theme.textFaint }}>{t.journalSub}</p>
+                <div
+                  style={{
+                    padding: 18,
+                    borderRadius: 20,
+                    background: `${accent}08`,
+                    border: `1px solid ${accent}15`,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 14,
+                  }}
+                >
+                  <span style={{ fontSize: 24 }}>📔</span>
+                  <div style={{ flex: 1 }}>
+                    <p
+                      style={{
+                        fontSize: 13,
+                        fontWeight: 700,
+                        color: theme.textMuted,
+                        marginBottom: 3,
+                      }}
+                    >
+                      {t.journalPrompt}
+                    </p>
+                    <p style={{ fontSize: 11, color: theme.textFaint }}>
+                      {t.journalSub}
+                    </p>
                   </div>
-                  <button onClick={() => setScreen("journal")} className="btn-hover" style={{ padding:"8px 14px", borderRadius:12, fontSize:12, fontWeight:700, border:`1px solid ${accent}30`, background:`${accent}15`, color:accent, cursor:"pointer" }}>{t.writeBtn}</button>
+                  <button
+                    onClick={() => setScreen("journal")}
+                    className="btn-hover"
+                    style={{
+                      padding: "8px 14px",
+                      borderRadius: 12,
+                      fontSize: 12,
+                      fontWeight: 700,
+                      border: `1px solid ${accent}30`,
+                      background: `${accent}15`,
+                      color: accent,
+                      cursor: "pointer",
+                    }}
+                  >
+                    {t.writeBtn}
+                  </button>
                 </div>
               </div>
             ) : null}
@@ -1897,92 +2560,371 @@ export default function SoulApp() {
 
         {/* ═══ SONGS TAB — YouTube embeds working ════════════════════ */}
         {tab === "songs" && (
-          <div className="fade-up">
-            <div style={{ padding:16, borderRadius:20, background:`${accent}0c`, border:`1px solid ${accent}18`, marginBottom:16 }}>
-              <p style={{ fontSize:12, fontWeight:800, color:accent, marginBottom:4 }}>{t.songIntro} — {getMoodLabel(moodCfg)} Mood</p>
-              <p style={{ fontSize:12, color:theme.textMuted, lineHeight:1.5 }}>{t.songSub}</p>
-            </div>
+  <div className="fade-up">
+    <div
+      style={{
+        padding: 16,
+        borderRadius: 20,
+        background: `${accent}0c`,
+        border: `1px solid ${accent}18`,
+        marginBottom: 16,
+      }}
+    >
+      <p
+        style={{
+          fontSize: 12,
+          fontWeight: 800,
+          color: accent,
+          marginBottom: 4,
+        }}
+      >
+        {t.songIntro} — {getMoodLabel(moodCfg)} Mood
+      </p>
 
-            {/* YouTube embed — plays in same page */}
-            {activeSong && (
-              <div className="fade-up" style={{ borderRadius:24, overflow:"hidden", marginBottom:16, border:`1px solid ${accent}30`, boxShadow:`0 0 40px ${accent}15` }}>
-                <iframe
-                  key={activeSong.yt}
-                  src={`https://www.youtube-nocookie.com/embed/${activeSong.yt}?autoplay=1&rel=0&modestbranding=1&color=white&iv_load_policy=3`}
-                  allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-                  allowFullScreen
-                  style={{ width:"100%", height:"clamp(200px,40vw,280px)", border:"none", display:"block" }}
-                  title={activeSong.title}
+      <p
+        style={{
+          fontSize: 12,
+          color: theme.textMuted,
+          lineHeight: 1.5,
+        }}
+      >
+        {t.songSub}
+      </p>
+    </div>
+
+    {/* YOUTUBE PLAYER */}
+    {activeSong && (
+      <div
+        className="fade-up"
+        style={{
+          borderRadius: 24,
+          overflow: "hidden",
+          marginBottom: 16,
+          border: `1px solid ${accent}30`,
+          boxShadow: `0 0 40px ${accent}15`,
+        }}
+      >
+        <iframe
+          key={activeSong.yt}
+          src={`https://www.youtube.com/embed/${activeSong.yt}?autoplay=1&mute=0&rel=0&modestbranding=1`}
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowFullScreen
+          title={activeSong.title}
+          style={{
+            width: "100%",
+            height: "clamp(200px,40vw,280px)",
+            border: "none",
+            display: "block",
+          }}
+        />
+
+        <div
+          style={{
+            padding: "14px 18px",
+            background: "rgba(255,255,255,.04)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <div>
+            <p
+              style={{
+                fontSize: 14,
+                fontWeight: 800,
+                color: theme.text,
+              }}
+            >
+              {activeSong.title}
+            </p>
+
+            <p style={{ fontSize: 12, color: accent }}>
+              ♪ {activeSong.artist}
+            </p>
+
+            <p
+              style={{
+                fontSize: 11,
+                color: theme.textFaint,
+                fontStyle: "italic",
+                marginTop: 2,
+              }}
+            >
+              {activeSong.vibe}
+            </p>
+          </div>
+
+          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            
+            {/* SOUND VISUALIZER */}
+            <div
+              style={{
+                display: "flex",
+                gap: 3,
+                alignItems: "flex-end",
+                height: 14
+              }}
+            >
+              {[1,2,3,4].map((b)=>(
+                <div
+                  key={b}
+                  className="sound-bar"
+                  style={{
+                    width:3,
+                    height:10,
+                    borderRadius:99,
+                    background:accent,
+                    animationDelay:`${b*0.12}s`
+                  }}
                 />
-                <div style={{ padding:"14px 18px", background:"rgba(255,255,255,.04)", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
-                  <div>
-                    <p style={{ fontSize:14, fontWeight:800, color:theme.text }}>{activeSong.title}</p>
-                    <p style={{ fontSize:12, color:accent }}>♪ {activeSong.artist}</p>
-                    <p style={{ fontSize:11, color:theme.textFaint, fontStyle:"italic", marginTop:2 }}>{activeSong.vibe}</p>
-                  </div>
-                  <div style={{ display:"flex", gap:8, alignItems:"center" }}>
-                    <div style={{ display:"flex", gap:3, alignItems:"flex-end" }}>
-                      {[1,2,3,4].map((b) => (
-                        <div key={b} className="sound-bar" style={{ width:3, borderRadius:99, background:accent, animationDelay:`${b*0.12}s`, minHeight:4, height:4 }}/>
-                      ))}
-                    </div>
-                    <button onClick={() => setActiveSong(null)} style={{ padding:"6px 12px", borderRadius:10, fontSize:11, fontWeight:700, background:"rgba(239,68,68,.12)", border:"1px solid rgba(239,68,68,.2)", color:"#f87171", cursor:"pointer" }}>
-                      {t.stopSong}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            <div style={{ display:"flex", flexDirection:"column", gap:10 }}>
-              {songs.map((s,i) => (
-                <button key={i} onClick={() => { setActiveSong(activeSong?.yt===s.yt?null:s); if(activeSong?.yt!==s.yt) showToast(`${t.nowPlaying}: ${s.title} 🎵`,"🎶"); }} className="song-row btn-hover" style={{ display:"flex", alignItems:"center", gap:14, padding:"16px 18px", borderRadius:20, background:activeSong?.yt===s.yt?`${accent}14`:theme.surface, border:`1px solid ${activeSong?.yt===s.yt?accent+"45":theme.border}`, cursor:"pointer", textAlign:"left", animationDelay:`${i*50}ms` }}>
-                  <div style={{ width:48, height:48, borderRadius:14, background:`linear-gradient(135deg,${accent}40,${accent}20)`, border:`1px solid ${accent}30`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:20, flexShrink:0 }}>
-                    {activeSong?.yt===s.yt?"▶":"▷"}
-                  </div>
-                  <div style={{ flex:1, minWidth:0 }}>
-                    <p style={{ fontWeight:800, fontSize:14, color:theme.text, marginBottom:2 }}>{s.title}</p>
-                    <p style={{ fontSize:12, color:accent, marginBottom:3 }}>{s.artist}</p>
-                    <p style={{ fontSize:11, color:theme.textFaint, fontStyle:"italic" }}>{s.vibe}</p>
-                  </div>
-                  {activeSong?.yt===s.yt && (
-                    <div style={{ display:"flex", gap:3, alignItems:"flex-end" }}>
-                      {[1,2,3,4].map((b) => (
-                        <div key={b} className="sound-bar" style={{ width:3, borderRadius:99, background:accent, animationDelay:`${b*0.12}s`, minHeight:4, height:4 }}/>
-                      ))}
-                    </div>
-                  )}
-                </button>
               ))}
             </div>
+
+            <button
+              onClick={() => setActiveSong(null)}
+              style={{
+                padding: "6px 12px",
+                borderRadius: 10,
+                fontSize: 11,
+                fontWeight: 700,
+                background: "rgba(239,68,68,.12)",
+                border: "1px solid rgba(239,68,68,.2)",
+                color: "#f87171",
+                cursor: "pointer",
+              }}
+            >
+              {t.stopSong}
+            </button>
           </div>
-        )}
+        </div>
+      </div>
+    )}
+
+    {/* SONG LIST */}
+    <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+      {songs.map((s, i) => (
+        <button
+          key={i}
+          onClick={() => {
+            setActiveSong(activeSong?.yt === s.yt ? null : s);
+            if (activeSong?.yt !== s.yt)
+              showToast(`${t.nowPlaying}: ${s.title} 🎵`, "🎶");
+          }}
+          className="song-row btn-hover"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 14,
+            padding: "16px 18px",
+            borderRadius: 20,
+            background:
+              activeSong?.yt === s.yt ? `${accent}14` : theme.surface,
+            border: `1px solid ${
+              activeSong?.yt === s.yt ? accent + "45" : theme.border
+            }`,
+            cursor: "pointer",
+            textAlign: "left",
+            animationDelay: `${i * 50}ms`,
+          }}
+        >
+          <div
+            style={{
+              width: 48,
+              height: 48,
+              borderRadius: 14,
+              background: `linear-gradient(135deg,${accent}40,${accent}20)`,
+              border: `1px solid ${accent}30`,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: 20,
+              flexShrink: 0,
+            }}
+          >
+            {activeSong?.yt === s.yt ? "▶" : "▷"}
+          </div>
+
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <p
+              style={{
+                fontWeight: 800,
+                fontSize: 14,
+                color: theme.text,
+                marginBottom: 2,
+              }}
+            >
+              {s.title}
+            </p>
+
+            <p style={{ fontSize: 12, color: accent, marginBottom: 3 }}>
+              {s.artist}
+            </p>
+
+            <p
+              style={{
+                fontSize: 11,
+                color: theme.textFaint,
+                fontStyle: "italic",
+              }}
+            >
+              {s.vibe}
+            </p>
+          </div>
+
+          {activeSong?.yt === s.yt && (
+            <div style={{ display: "flex", gap: 3, alignItems: "flex-end", height:14 }}>
+              {[1,2,3,4].map((b)=>(
+                <div
+                  key={b}
+                  className="sound-bar"
+                  style={{
+                    width:3,
+                    height:10,
+                    borderRadius:99,
+                    background:accent,
+                    animationDelay:`${b*0.12}s`
+                  }}
+                />
+              ))}
+            </div>
+          )}
+        </button>
+      ))}
+    </div>
+  </div>
+)}
 
         {/* ═══ LIFT TAB ══════════════════════════════════════════════ */}
         {tab === "lifter" && (
           <div className="fade-up">
-            <div style={{ padding:16, borderRadius:20, background:`${accent}0c`, border:`1px solid ${accent}18`, marginBottom:16 }}>
-              <p style={{ fontSize:12, fontWeight:800, color:accent, marginBottom:4 }}>{t.moodLifters} — {getMoodLabel(moodCfg)}</p>
-              <p style={{ fontSize:12, color:theme.textMuted, lineHeight:1.5 }}>{t.checkOff}</p>
+            <div
+              style={{
+                padding: 16,
+                borderRadius: 20,
+                background: `${accent}0c`,
+                border: `1px solid ${accent}18`,
+                marginBottom: 16,
+              }}
+            >
+              <p
+                style={{
+                  fontSize: 12,
+                  fontWeight: 800,
+                  color: accent,
+                  marginBottom: 4,
+                }}
+              >
+                {t.moodLifters} — {getMoodLabel(moodCfg)}
+              </p>
+              <p
+                style={{
+                  fontSize: 12,
+                  color: theme.textMuted,
+                  lineHeight: 1.5,
+                }}
+              >
+                {t.checkOff}
+              </p>
             </div>
-            <div style={{ display:"flex", flexDirection:"column", gap:10, marginBottom:20 }}>
-              {lifters.map((l,i) => {
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 10,
+                marginBottom: 20,
+              }}
+            >
+              {lifters.map((l, i) => {
                 const done = checkedLifters.includes(i);
                 return (
-                  <button key={i} onClick={() => { setCheckedLifters((prev)=>done?prev.filter((x)=>x!==i):[...prev,i]); if(!done){showToast("+2 XP! ✅","⚡"); setXp((x)=>x+2); if(checkedLifters.length+1===lifters.length)spawnConfetti();} }} className="lifter-row btn-hover" style={{ display:"flex", alignItems:"center", gap:14, padding:"16px 18px", borderRadius:18, background:done?`${accent}12`:theme.surface, border:`1px solid ${done?accent+"40":theme.border}`, cursor:"pointer", textAlign:"left" }}>
-                    <div style={{ width:30, height:30, borderRadius:10, background:done?`${accent}30`:"rgba(255,255,255,.06)", border:`1px solid ${done?accent+"50":"rgba(255,255,255,.12)"}`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:14, fontWeight:800, color:done?accent:"rgba(255,255,255,.3)", flexShrink:0, transition:"all .3s" }}>
-                      {done?"✓":i+1}
+                  <button
+                    key={i}
+                    onClick={() => {
+                      setCheckedLifters((prev) =>
+                        done ? prev.filter((x) => x !== i) : [...prev, i],
+                      );
+                      if (!done) {
+                        showToast("+2 XP! ✅", "⚡");
+                        setXp((x) => x + 2);
+                        if (checkedLifters.length + 1 === lifters.length)
+                          spawnConfetti();
+                      }
+                    }}
+                    className="lifter-row btn-hover"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 14,
+                      padding: "16px 18px",
+                      borderRadius: 18,
+                      background: done ? `${accent}12` : theme.surface,
+                      border: `1px solid ${done ? accent + "40" : theme.border}`,
+                      cursor: "pointer",
+                      textAlign: "left",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: 30,
+                        height: 30,
+                        borderRadius: 10,
+                        background: done
+                          ? `${accent}30`
+                          : "rgba(255,255,255,.06)",
+                        border: `1px solid ${done ? accent + "50" : "rgba(255,255,255,.12)"}`,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: 14,
+                        fontWeight: 800,
+                        color: done ? accent : "rgba(255,255,255,.3)",
+                        flexShrink: 0,
+                        transition: "all .3s",
+                      }}
+                    >
+                      {done ? "✓" : i + 1}
                     </div>
-                    <span style={{ fontSize:14, color:done?"rgba(255,255,255,.5)":theme.textMuted, lineHeight:1.4, textDecoration:done?"line-through":"none", flex:1 }}>{l}</span>
+                    <span
+                      style={{
+                        fontSize: 14,
+                        color: done ? "rgba(255,255,255,.5)" : theme.textMuted,
+                        lineHeight: 1.4,
+                        textDecoration: done ? "line-through" : "none",
+                        flex: 1,
+                      }}
+                    >
+                      {l}
+                    </span>
                   </button>
                 );
               })}
             </div>
-            {checkedLifters.length===lifters.length && lifters.length>0 && (
-              <div className="pop-in" style={{ padding:24, borderRadius:24, background:`${accent}15`, border:`1px solid ${accent}35`, textAlign:"center" }}>
-                <div style={{ fontSize:48, marginBottom:8 }}>🎉</div>
-                <p className="playfair" style={{ fontSize:22, fontWeight:700, color:accent, marginBottom:6 }}>{t.allDone}</p>
-                <p style={{ fontSize:13, color:theme.textMuted }}>{t.allDoneSub}</p>
+            {checkedLifters.length === lifters.length && lifters.length > 0 && (
+              <div
+                className="pop-in"
+                style={{
+                  padding: 24,
+                  borderRadius: 24,
+                  background: `${accent}15`,
+                  border: `1px solid ${accent}35`,
+                  textAlign: "center",
+                }}
+              >
+                <div style={{ fontSize: 48, marginBottom: 8 }}>🎉</div>
+                <p
+                  className="playfair"
+                  style={{
+                    fontSize: 22,
+                    fontWeight: 700,
+                    color: accent,
+                    marginBottom: 6,
+                  }}
+                >
+                  {t.allDone}
+                </p>
+                <p style={{ fontSize: 13, color: theme.textMuted }}>
+                  {t.allDoneSub}
+                </p>
               </div>
             )}
           </div>
@@ -1990,38 +2932,169 @@ export default function SoulApp() {
 
         {/* ═══ BREATHING TAB ═════════════════════════════════════════ */}
         {tab === "breathe" && (
-          <div className="fade-up" style={{ display:"flex", flexDirection:"column", alignItems:"center" }}>
-            <div style={{ padding:16, borderRadius:20, background:`${accent}0c`, border:`1px solid ${accent}18`, marginBottom:28, width:"100%" }}>
-              <p style={{ fontSize:12, fontWeight:800, color:accent, marginBottom:4 }}>{t.boxBreathing}</p>
-              <p style={{ fontSize:12, color:theme.textMuted, lineHeight:1.5 }}>{t.boxSub}</p>
+          <div
+            className="fade-up"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <div
+              style={{
+                padding: 16,
+                borderRadius: 20,
+                background: `${accent}0c`,
+                border: `1px solid ${accent}18`,
+                marginBottom: 28,
+                width: "100%",
+              }}
+            >
+              <p
+                style={{
+                  fontSize: 12,
+                  fontWeight: 800,
+                  color: accent,
+                  marginBottom: 4,
+                }}
+              >
+                {t.boxBreathing}
+              </p>
+              <p
+                style={{
+                  fontSize: 12,
+                  color: theme.textMuted,
+                  lineHeight: 1.5,
+                }}
+              >
+                {t.boxSub}
+              </p>
             </div>
-            <div style={{ position:"relative", width:220, height:220, marginBottom:28 }}>
+            <div
+              style={{
+                position: "relative",
+                width: 220,
+                height: 220,
+                marginBottom: 28,
+              }}
+            >
               {breatheActive && (
                 <>
-                  <div style={{ position:"absolute", inset:-20, borderRadius:"50%", border:`2px solid ${accent}`, animation:"ripple 2s ease-out infinite", opacity:0 }}/>
-                  <div style={{ position:"absolute", inset:-40, borderRadius:"50%", border:`2px solid ${accent}`, animation:"ripple 2s 0.6s ease-out infinite", opacity:0 }}/>
+                  <div
+                    style={{
+                      position: "absolute",
+                      inset: -20,
+                      borderRadius: "50%",
+                      border: `2px solid ${accent}`,
+                      animation: "ripple 2s ease-out infinite",
+                      opacity: 0,
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      inset: -40,
+                      borderRadius: "50%",
+                      border: `2px solid ${accent}`,
+                      animation: "ripple 2s 0.6s ease-out infinite",
+                      opacity: 0,
+                    }}
+                  />
                 </>
               )}
-              <div style={{ position:"absolute", inset:0, borderRadius:"50%", background:`radial-gradient(circle,${accent}30,${accent}10)`, border:`3px solid ${accent}50`, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", transition:"transform 4s ease-in-out, box-shadow 4s ease-in-out", transform:breatheActive&&(breathePhase==="inhale"||breathePhase==="hold")?"scale(1.45)":"scale(1)", boxShadow:breatheActive?`0 0 60px ${accent}50,0 0 120px ${accent}25`:`0 0 20px ${accent}25`, fontSize:40 }}>
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  borderRadius: "50%",
+                  background: `radial-gradient(circle,${accent}30,${accent}10)`,
+                  border: `3px solid ${accent}50`,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  transition:
+                    "transform 4s ease-in-out, box-shadow 4s ease-in-out",
+                  transform:
+                    breatheActive &&
+                    (breathePhase === "inhale" || breathePhase === "hold")
+                      ? "scale(1.45)"
+                      : "scale(1)",
+                  boxShadow: breatheActive
+                    ? `0 0 60px ${accent}50,0 0 120px ${accent}25`
+                    : `0 0 20px ${accent}25`,
+                  fontSize: 40,
+                }}
+              >
                 🌬️
                 {breatheActive && (
-                  <div style={{ position:"absolute", bottom:28, fontSize:11, fontWeight:800, color:accent, textAlign:"center", lineHeight:1.4 }}>
-                    {breathePhase==="inhale"?t.inhale:breathePhase==="hold"?t.hold:breathePhase==="exhale"?t.exhale:t.wait}
+                  <div
+                    style={{
+                      position: "absolute",
+                      bottom: 28,
+                      fontSize: 11,
+                      fontWeight: 800,
+                      color: accent,
+                      textAlign: "center",
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    {breathePhase === "inhale"
+                      ? t.inhale
+                      : breathePhase === "hold"
+                        ? t.hold
+                        : breathePhase === "exhale"
+                          ? t.exhale
+                          : t.wait}
                   </div>
                 )}
               </div>
             </div>
             {breatheActive && (
-              <div style={{ marginBottom:20, display:"flex", gap:8 }}>
-                {[0,1,2,3].map((i) => (
-                  <div key={i} style={{ width:36, height:36, borderRadius:"50%", background:i<breatheCount?`${accent}40`:"rgba(255,255,255,.06)", border:`2px solid ${i<breatheCount?accent:"rgba(255,255,255,.1)"}`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:14, color:i<breatheCount?accent:"rgba(255,255,255,.3)" }}>
-                    {i<breatheCount?"✓":i+1}
+              <div style={{ marginBottom: 20, display: "flex", gap: 8 }}>
+                {[0, 1, 2, 3].map((i) => (
+                  <div
+                    key={i}
+                    style={{
+                      width: 36,
+                      height: 36,
+                      borderRadius: "50%",
+                      background:
+                        i < breatheCount
+                          ? `${accent}40`
+                          : "rgba(255,255,255,.06)",
+                      border: `2px solid ${i < breatheCount ? accent : "rgba(255,255,255,.1)"}`,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: 14,
+                      color: i < breatheCount ? accent : "rgba(255,255,255,.3)",
+                    }}
+                  >
+                    {i < breatheCount ? "✓" : i + 1}
                   </div>
                 ))}
               </div>
             )}
-            <button onClick={breatheActive?stopBreathe:startBreathe} className="btn-hover" style={{ padding:"14px 36px", borderRadius:99, fontSize:15, fontWeight:800, border:"none", background:breatheActive?"rgba(239,68,68,.2)":`linear-gradient(135deg,${accent},${accent}bb)`, color:breatheActive?"#f87171":"#fff", cursor:"pointer", boxShadow:breatheActive?"none":`0 12px 36px ${accent}30`, marginBottom:24 }}>
-              {breatheActive?t.stopBreathe:t.startBreathe}
+            <button
+              onClick={breatheActive ? stopBreathe : startBreathe}
+              className="btn-hover"
+              style={{
+                padding: "14px 36px",
+                borderRadius: 99,
+                fontSize: 15,
+                fontWeight: 800,
+                border: "none",
+                background: breatheActive
+                  ? "rgba(239,68,68,.2)"
+                  : `linear-gradient(135deg,${accent},${accent}bb)`,
+                color: breatheActive ? "#f87171" : "#fff",
+                cursor: "pointer",
+                boxShadow: breatheActive ? "none" : `0 12px 36px ${accent}30`,
+                marginBottom: 24,
+              }}
+            >
+              {breatheActive ? t.stopBreathe : t.startBreathe}
             </button>
           </div>
         )}
@@ -2029,85 +3102,318 @@ export default function SoulApp() {
         {/* ═══ FAVORITES TAB ═════════════════════════════════════════ */}
         {tab === "fav" && (
           <div className="fade-up">
-            <div style={{ display:"flex", gap:10, marginBottom:16 }}>
-              <div style={{ position:"relative", flex:1 }}>
-                <span style={{ position:"absolute", left:12, top:"50%", transform:"translateY(-50%)", fontSize:13, color:theme.textFaint }}>🔍</span>
-                <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder={t.searchSaved} style={{ ...inputStyle }} />
+            <div style={{ display: "flex", gap: 10, marginBottom: 16 }}>
+              <div style={{ position: "relative", flex: 1 }}>
+                <span
+                  style={{
+                    position: "absolute",
+                    left: 12,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    fontSize: 13,
+                    color: theme.textFaint,
+                  }}
+                >
+                  🔍
+                </span>
+                <input
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder={t.searchSaved}
+                  style={{ ...inputStyle }}
+                />
               </div>
-              {favorites.length>0 && (
-                <button onClick={() => { setFavorites([]); showToast(t.clearAll,"🗑️"); }} style={{ padding:"8px 14px", borderRadius:14, background:"rgba(239,68,68,.1)", border:"1px solid rgba(239,68,68,.2)", color:"#f87171", fontSize:11, fontWeight:800, cursor:"pointer" }}>
+              {favorites.length > 0 && (
+                <button
+                  onClick={() => {
+                    setFavorites([]);
+                    showToast(t.clearAll, "🗑️");
+                  }}
+                  style={{
+                    padding: "8px 14px",
+                    borderRadius: 14,
+                    background: "rgba(239,68,68,.1)",
+                    border: "1px solid rgba(239,68,68,.2)",
+                    color: "#f87171",
+                    fontSize: 11,
+                    fontWeight: 800,
+                    cursor: "pointer",
+                  }}
+                >
                   {t.clearAll}
                 </button>
               )}
             </div>
-            {filteredFavs.length===0 ? (
-              <div style={{ textAlign:"center", padding:"60px 20px", color:theme.textFaint }}>
-                <div style={{ fontSize:48, marginBottom:12 }}>❤️</div>
-                <p style={{ fontWeight:700, fontSize:14, marginBottom:6 }}>{t.noSaved}</p>
-                <p style={{ fontSize:12 }}>{t.noSavedSub}</p>
+            {filteredFavs.length === 0 ? (
+              <div
+                style={{
+                  textAlign: "center",
+                  padding: "60px 20px",
+                  color: theme.textFaint,
+                }}
+              >
+                <div style={{ fontSize: 48, marginBottom: 12 }}>❤️</div>
+                <p style={{ fontWeight: 700, fontSize: 14, marginBottom: 6 }}>
+                  {t.noSaved}
+                </p>
+                <p style={{ fontSize: 12 }}>{t.noSavedSub}</p>
               </div>
-            ) : filteredFavs.map((f,i) => {
-              const m = MOODS.find((x)=>x.id===f.mood);
-              return (
-                <div key={i} className="fade-up" style={{ padding:20, borderRadius:22, background:theme.surface, border:`1px solid ${theme.border}`, marginBottom:12, animationDelay:`${i*40}ms` }}>
-                  <div style={{ display:"flex", gap:8, alignItems:"center", marginBottom:12 }}>
-                    <span style={{ fontSize:18 }}>{m?.emoji}</span>
-                    <span style={{ fontSize:11, fontWeight:800, color:m?.accent, textTransform:"uppercase" }}>{f.mood}</span>
-                    <span style={{ marginLeft:"auto", fontSize:10, color:theme.textFaint }}>{f.lang?.toUpperCase()} · {new Date(f.savedAt).toLocaleDateString("en-IN")}</span>
+            ) : (
+              filteredFavs.map((f, i) => {
+                const m = MOODS.find((x) => x.id === f.mood);
+                return (
+                  <div
+                    key={i}
+                    className="fade-up"
+                    style={{
+                      padding: 20,
+                      borderRadius: 22,
+                      background: theme.surface,
+                      border: `1px solid ${theme.border}`,
+                      marginBottom: 12,
+                      animationDelay: `${i * 40}ms`,
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: 8,
+                        alignItems: "center",
+                        marginBottom: 12,
+                      }}
+                    >
+                      <span style={{ fontSize: 18 }}>{m?.emoji}</span>
+                      <span
+                        style={{
+                          fontSize: 11,
+                          fontWeight: 800,
+                          color: m?.accent,
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        {f.mood}
+                      </span>
+                      <span
+                        style={{
+                          marginLeft: "auto",
+                          fontSize: 10,
+                          color: theme.textFaint,
+                        }}
+                      >
+                        {f.lang?.toUpperCase()} ·{" "}
+                        {new Date(f.savedAt).toLocaleDateString("en-IN")}
+                      </span>
+                    </div>
+                    <p
+                      className="playfair"
+                      style={{
+                        fontSize: 16,
+                        fontStyle: "italic",
+                        color: theme.text,
+                        lineHeight: 1.7,
+                        marginBottom: 10,
+                      }}
+                    >
+                      "{f.quote}"
+                    </p>
+                    <p
+                      style={{
+                        fontSize: 13,
+                        fontWeight: 700,
+                        color: m?.accent,
+                        marginBottom: 8,
+                      }}
+                    >
+                      — {f.author}
+                    </p>
+                    {f.explanation && (
+                      <p
+                        style={{
+                          fontSize: 12,
+                          color: theme.textFaint,
+                          lineHeight: 1.7,
+                          borderLeft: `2px solid ${m?.accent}40`,
+                          paddingLeft: 10,
+                          marginBottom: 12,
+                        }}
+                      >
+                        {f.explanation}
+                      </p>
+                    )}
+                    <button
+                      onClick={() => {
+                        setFavorites((p) => p.filter((_, j) => j !== i));
+                        showToast("Removed", "💔");
+                      }}
+                      style={{
+                        fontSize: 11,
+                        color: "rgba(239,68,68,.6)",
+                        background: "none",
+                        border: "none",
+                        cursor: "pointer",
+                      }}
+                    >
+                      💔 Remove
+                    </button>
                   </div>
-                  <p className="playfair" style={{ fontSize:16, fontStyle:"italic", color:theme.text, lineHeight:1.7, marginBottom:10 }}>"{f.quote}"</p>
-                  <p style={{ fontSize:13, fontWeight:700, color:m?.accent, marginBottom:8 }}>— {f.author}</p>
-                  {f.explanation && <p style={{ fontSize:12, color:theme.textFaint, lineHeight:1.7, borderLeft:`2px solid ${m?.accent}40`, paddingLeft:10, marginBottom:12 }}>{f.explanation}</p>}
-                  <button onClick={() => { setFavorites((p)=>p.filter((_,j)=>j!==i)); showToast("Removed","💔"); }} style={{ fontSize:11, color:"rgba(239,68,68,.6)", background:"none", border:"none", cursor:"pointer" }}>💔 Remove</button>
-                </div>
-              );
-            })}
+                );
+              })
+            )}
           </div>
         )}
 
         {/* ═══ HISTORY TAB ════════════════════════════════════════════ */}
         {tab === "history" && (
           <div className="fade-up">
-            <div style={{ display:"flex", gap:10, marginBottom:16, flexWrap:"wrap" }}>
-              <div style={{ position:"relative", flex:1, minWidth:160 }}>
-                <span style={{ position:"absolute", left:12, top:"50%", transform:"translateY(-50%)", fontSize:13, color:theme.textFaint }}>🔍</span>
-                <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder={t.searchHistory} style={{ ...inputStyle }}/>
+            <div
+              style={{
+                display: "flex",
+                gap: 10,
+                marginBottom: 16,
+                flexWrap: "wrap",
+              }}
+            >
+              <div style={{ position: "relative", flex: 1, minWidth: 160 }}>
+                <span
+                  style={{
+                    position: "absolute",
+                    left: 12,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    fontSize: 13,
+                    color: theme.textFaint,
+                  }}
+                >
+                  🔍
+                </span>
+                <input
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder={t.searchHistory}
+                  style={{ ...inputStyle }}
+                />
               </div>
-              <select value={moodFilter} onChange={(e) => setMoodFilter(e.target.value)} style={{ padding:"10px 14px", borderRadius:14, background:theme.surface, border:`1px solid ${theme.border}`, color:theme.text, fontSize:12, outline:"none" }}>
+              <select
+                value={moodFilter}
+                onChange={(e) => setMoodFilter(e.target.value)}
+                style={{
+                  padding: "10px 14px",
+                  borderRadius: 14,
+                  background: theme.surface,
+                  border: `1px solid ${theme.border}`,
+                  color: theme.text,
+                  fontSize: 12,
+                  outline: "none",
+                }}
+              >
                 <option value="all">{t.allMoods}</option>
-                {MOODS.map((m) => <option key={m.id} value={m.id}>{m.emoji} {m.label}</option>)}
+                {MOODS.map((m) => (
+                  <option key={m.id} value={m.id}>
+                    {m.emoji} {m.label}
+                  </option>
+                ))}
               </select>
-              {history.length>0 && (
-                <button onClick={() => { setHistory([]); showToast(t.clearAll,"🗑️"); }} style={{ padding:"8px 14px", borderRadius:14, background:"rgba(239,68,68,.1)", border:"1px solid rgba(239,68,68,.2)", color:"#f87171", fontSize:11, fontWeight:800, cursor:"pointer" }}>
+              {history.length > 0 && (
+                <button
+                  onClick={() => {
+                    setHistory([]);
+                    showToast(t.clearAll, "🗑️");
+                  }}
+                  style={{
+                    padding: "8px 14px",
+                    borderRadius: 14,
+                    background: "rgba(239,68,68,.1)",
+                    border: "1px solid rgba(239,68,68,.2)",
+                    color: "#f87171",
+                    fontSize: 11,
+                    fontWeight: 800,
+                    cursor: "pointer",
+                  }}
+                >
                   {t.clearAll}
                 </button>
               )}
             </div>
-            {filteredHistory.length===0 ? (
-              <div style={{ textAlign:"center", padding:"60px 20px", color:theme.textFaint }}>
-                <div style={{ fontSize:48, marginBottom:12 }}>📖</div>
-                <p style={{ fontWeight:700, fontSize:14 }}>{t.noHistory}</p>
+            {filteredHistory.length === 0 ? (
+              <div
+                style={{
+                  textAlign: "center",
+                  padding: "60px 20px",
+                  color: theme.textFaint,
+                }}
+              >
+                <div style={{ fontSize: 48, marginBottom: 12 }}>📖</div>
+                <p style={{ fontWeight: 700, fontSize: 14 }}>{t.noHistory}</p>
               </div>
-            ) : filteredHistory.map((h,i) => {
-              const m = MOODS.find((x)=>x.id===h.mood);
-              return (
-                <div key={i} className="fade-up" style={{ display:"flex", gap:12, padding:"14px 16px", borderRadius:18, background:theme.surface, border:`1px solid ${theme.border}`, marginBottom:8, animationDelay:`${i*30}ms` }}>
-                  <span style={{ fontSize:18, flexShrink:0, marginTop:2 }}>{m?.emoji}</span>
-                  <div style={{ flex:1, minWidth:0 }}>
-                    <p style={{ fontSize:13, color:theme.textMuted, lineHeight:1.6, marginBottom:4 }}>"{h.quote}"</p>
-                    <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
-                      <span style={{ fontSize:11, color:m?.accent, fontWeight:700 }}>— {h.author}</span>
-                      <span style={{ fontSize:10, color:theme.textFaint }}>{m?.label} · {h.lang?.toUpperCase()}</span>
-                      <span style={{ fontSize:10, color:theme.textFaint }}>{new Date(h.fetchedAt).toLocaleDateString("en-IN")}</span>
+            ) : (
+              filteredHistory.map((h, i) => {
+                const m = MOODS.find((x) => x.id === h.mood);
+                return (
+                  <div
+                    key={i}
+                    className="fade-up"
+                    style={{
+                      display: "flex",
+                      gap: 12,
+                      padding: "14px 16px",
+                      borderRadius: 18,
+                      background: theme.surface,
+                      border: `1px solid ${theme.border}`,
+                      marginBottom: 8,
+                      animationDelay: `${i * 30}ms`,
+                    }}
+                  >
+                    <span style={{ fontSize: 18, flexShrink: 0, marginTop: 2 }}>
+                      {m?.emoji}
+                    </span>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <p
+                        style={{
+                          fontSize: 13,
+                          color: theme.textMuted,
+                          lineHeight: 1.6,
+                          marginBottom: 4,
+                        }}
+                      >
+                        "{h.quote}"
+                      </p>
+                      <div
+                        style={{ display: "flex", gap: 10, flexWrap: "wrap" }}
+                      >
+                        <span
+                          style={{
+                            fontSize: 11,
+                            color: m?.accent,
+                            fontWeight: 700,
+                          }}
+                        >
+                          — {h.author}
+                        </span>
+                        <span style={{ fontSize: 10, color: theme.textFaint }}>
+                          {m?.label} · {h.lang?.toUpperCase()}
+                        </span>
+                        <span style={{ fontSize: 10, color: theme.textFaint }}>
+                          {new Date(h.fetchedAt).toLocaleDateString("en-IN")}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })
+            )}
           </div>
         )}
 
-        <div style={{ textAlign:"center", marginTop:40, fontSize:11, color:theme.textFaint }}>{t.footer}</div>
+        <div
+          style={{
+            textAlign: "center",
+            marginTop: 40,
+            fontSize: 11,
+            color: theme.textFaint,
+          }}
+        >
+          {t.footer}
+        </div>
       </div>
     </div>
   );
