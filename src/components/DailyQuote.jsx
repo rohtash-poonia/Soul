@@ -1044,7 +1044,7 @@ export default function SoulApp() {
               <div style={{ position: "relative" }}>
                 <button
                   onClick={() => setShowThemePicker((prev) => !prev)}
-                  className="btn-hover max-sm:hidden"
+                  className="btn-hover hidden"
                   style={{
                     padding: "8px 14px",
                     borderRadius: 12,
