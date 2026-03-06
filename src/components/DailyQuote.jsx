@@ -1002,10 +1002,11 @@ export default function SoulApp() {
         >
           {/* Top Bar */}
           <div
-            className="fade-up"
+            className="fade-up  "
             style={{
               display: "flex",
               alignItems: "center",
+              gap:"12px" ,
               justifyContent: "space-between",
               marginBottom: "clamp(32px,5vw,56px)",
             }}
@@ -1043,7 +1044,7 @@ export default function SoulApp() {
               <div style={{ position: "relative" }}>
                 <button
                   onClick={() => setShowThemePicker((prev) => !prev)}
-                  className="btn-hover"
+                  className="btn-hover max-sm:hidden"
                   style={{
                     padding: "8px 14px",
                     borderRadius: 12,
@@ -1174,7 +1175,7 @@ export default function SoulApp() {
 
           {/* Hero */}
           <div
-            className="fade-up"
+            className="fade-up "
             style={{
               textAlign: "center",
               marginBottom: "clamp(32px,5vw,56px)",
